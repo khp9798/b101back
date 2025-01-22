@@ -4,11 +4,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +21,13 @@ import java.util.List;
 @NoArgsConstructor // 기본 생성자 생성
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "USERS") // 테이블 이름
-public class User {
+public class User implements Serializable {
 
     @Id // PK
-    @GeneratedValue
-    @Schema(hidden = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // 사용자 고유 ID
 
-    @Column(name="user_email") //일반 회원가입 유저는 null 가능?
+    @Column(name="user_email",unique = true) //일반 회원가입 유저는 null 가능?
     private String email;
 
     @Column(name = "USER_PASSWORD", length = 255)

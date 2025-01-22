@@ -1,38 +1,30 @@
 package com.example.b101.domain;
 
 
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.io.Serializable;
 
-@Entity
-@Getter
-@Setter
-public class Room {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Room implements Serializable {
 
     @Id
-    @GeneratedValue
-    @Column(name="ROOM_ID")
-    private int id;
+    private String id;
 
     private String name;
 
-    private int capacity;
+//    private List<User> users;
 
     private int maxCapacity;
 
-    @Enumerated(EnumType.STRING)
-    private RoomStatus roomStatus;
+    private String password;
 
-    private String roomPassword;
-
-    private String roomLink;
-
-    @CreatedDate
-    private LocalDateTime createdAt;
+    private String link;
 
 
 }
