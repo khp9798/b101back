@@ -31,15 +31,7 @@ public class UserController {
 
     @GetMapping("/check-nickname")
     public ResponseEntity<?> checkNickname(@RequestParam("nickname") String nickname,HttpServletRequest request) {
-        if(userService.findByNicKname(nickname).isPresent()) {
-            return ApiResponseUtil.failure("이미 사용중인 닉네임입니다.",
-                    HttpStatus.CONFLICT,
-                    request.getRequestURI());
-        }
-
-        return ApiResponseUtil.success(nickname,"닉네임 사용가능",
-                HttpStatus.OK,
-                request.getRequestURI());
+        return userService.findByNicKname(nickname, request);
     }
 
 }
